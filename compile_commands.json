@@ -1,0 +1,27 @@
+[
+{
+  "directory": "/home/jschmold/Projects/game-programming/game-4",
+  "command": "/usr/bin/c++   -isystem /usr/local/include  -O2 -DNDEBUG   -std=c++17 -o CMakeFiles/game.dir/src/index.cpp.o -c /home/jschmold/Projects/game-programming/game-4/src/index.cpp",
+  "file": "/home/jschmold/Projects/game-programming/game-4/src/index.cpp"
+},
+{
+  "directory": "/home/jschmold/Projects/game-programming/game-4/src/entities",
+  "command": "/usr/bin/c++    -O2 -DNDEBUG   -std=c++17 -o CMakeFiles/entities.dir/objective.cpp.o -c /home/jschmold/Projects/game-programming/game-4/src/entities/objective.cpp",
+  "file": "/home/jschmold/Projects/game-programming/game-4/src/entities/objective.cpp"
+},
+{
+  "directory": "/home/jschmold/Projects/game-programming/game-4/src/entities",
+  "command": "/usr/bin/c++    -O2 -DNDEBUG   -std=c++17 -o CMakeFiles/entities.dir/player.cpp.o -c /home/jschmold/Projects/game-programming/game-4/src/entities/player.cpp",
+  "file": "/home/jschmold/Projects/game-programming/game-4/src/entities/player.cpp"
+},
+{
+  "directory": "/home/jschmold/Projects/game-programming/game-4/src/entities",
+  "command": "/usr/bin/c++    -O2 -DNDEBUG   -std=c++17 -o CMakeFiles/entities.dir/world.cpp.o -c /home/jschmold/Projects/game-programming/game-4/src/entities/world.cpp",
+  "file": "/home/jschmold/Projects/game-programming/game-4/src/entities/world.cpp"
+},
+{
+  "directory": "/home/jschmold/Projects/game-programming/game-4/src/entities",
+  "command": "/usr/bin/c++    -O2 -DNDEBUG   -std=c++17 -o CMakeFiles/entities.dir/platform.cpp.o -c /home/jschmold/Projects/game-programming/game-4/src/entities/platform.cpp",
+  "file": "/home/jschmold/Projects/game-programming/game-4/src/entities/platform.cpp"
+}
+]

@@ -5,3 +5,4 @@ compilse_commands.json
 game
 Makefile
 *.swp
+.vscode/

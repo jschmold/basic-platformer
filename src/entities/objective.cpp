@@ -2,6 +2,7 @@
 #include "physics-entity.h"
 #include "world.h"
 #include "objective.h"
+#include "game-object.h"
 
 
 using namespace Entities;
@@ -10,6 +11,7 @@ using namespace sf;
 Objective::Objective(Vector2f position,
                      int val,
                      World* world)
+    : GameObject<Objective>(this, "coin")
 {
     this->m_value = val;
     this->m_world = world;

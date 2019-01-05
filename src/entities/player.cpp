@@ -4,18 +4,20 @@
 #include "player.h"
 #include "physics-entity.h"
 #include "world-entity.h"
+#include "game-object.h"
 
 using namespace Entities;
 using namespace sf;
 using namespace std;
 
-Player::Player(
-    float       density,
-    float       friction,
-    b2World*    world,
-    Vector2f    startPos,
-    View*       view
-) {
+Player::Player(float       density,
+               float       friction,
+               b2World*    world,
+               Vector2f    startPos,
+               View*       view
+               )
+    : GameObject<Player>::GameObject(this, "player")
+{
     // physics
     this->m_world    = world;
 

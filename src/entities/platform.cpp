@@ -1,10 +1,15 @@
 #include "platform.h"
 #include <SFML/Graphics.hpp>
 #include <Box2D/Box2D.h>
+#include "game-object.h"
 
 using namespace Entities;
 
-Platform::Platform(b2World* world, Vector2f position, Vector2f size, Color color)
+Platform::Platform(b2World* world,
+                   Vector2f position,
+                   Vector2f size,
+                   Color color)
+    : GameObject<Platform>(this, "platform")
 {
     this->m_world = world;
 

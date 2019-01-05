@@ -4,10 +4,11 @@
 #include <SFML/Graphics.hpp>
 #include "world-entity.h"
 #include "physics-entity.h"
+#include "game-object.h"
 
 namespace Entities
 {
-    class Platform : public WorldEntity, public PhysicsEntity
+    class Platform : public WorldEntity, public PhysicsEntity, public GameObject<Platform>
     {
     private:
         RectangleShape* m_visShape;

@@ -4,10 +4,11 @@
 #include "world-entity.h"
 #include "physics-entity.h"
 #include "world.h"
+#include "game-object.h"
 
 namespace Entities
 {
-    class Objective : public WorldEntity, public PhysicsEntity
+    class Objective : public WorldEntity, public PhysicsEntity, public GameObject<Objective>
     {
     private:
         int                m_value;

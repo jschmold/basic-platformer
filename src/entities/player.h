@@ -6,13 +6,14 @@
 #include "physics-entity.h"
 #include "world-entity.h"
 #include "objective.h"
+#include "game-object.h"
 
 using namespace sf;
 
 namespace Entities
 {
 
-    class Player : public PhysicsEntity, public WorldEntity
+    class Player : public GameObject<Player>, public PhysicsEntity, public WorldEntity
     {
     protected:
         RectangleShape* m_visShape;
@@ -20,13 +21,12 @@ namespace Entities
         float           m_speed = 0.4f;
         bool            m_canJump = true;
     public:
-        Player(
-            float       density,
-            float       friction,
-            b2World*    world,
-            Vector2f    startPos,
-            View*       camera
-        );
+        Player(float       density,
+               float       friction,
+               b2World*    world,
+               Vector2f    startPos,
+               View*       camera);
+
         virtual ~Player();
 
         virtual void onThink();

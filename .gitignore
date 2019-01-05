@@ -1,8 +1,10 @@
 CMakeCache.txt
 CMakeFiles/
 cmake_install.cmake
-compilse_commands.json
+compile_commands.json
 game
 Makefile
 *.swp
 .vscode/
+**/lib*.a
+game.run

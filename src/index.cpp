@@ -14,23 +14,21 @@ int main(int argc, char* argv[])
 
     World* world = new World(window, b2Vec2(0.0f, 0.2f));
 
-    Player* ply  = new Player(4.f, 0.2f, world, Vector2f(0.f, -10.f), *world);
+    Player* ply  = new Player(4.f,
+                              0.2f,
+                              world,
+                              Vector2f(0.f, -10.f),
+                              *world);
 
     Platform* mainFloor = new Platform(world,
                                        Vector2f(-0.f, 0.f),
                                        Vector2f(10.f, .5f),
                                        Color::Red);
 
-    // shut the fuck  up
     Objective* coin = new Objective(Vector2f(2.f, -4.f), 1, world);
 
-    world->addDrawableEntity(ply);
     world->addWorldEntity(ply);
-
-    world->addDrawableEntity(mainFloor);
     world->addWorldEntity(mainFloor);
-
-    world->addDrawableEntity(coin);
     world->addWorldEntity(coin);
 
     while(window->isOpen())

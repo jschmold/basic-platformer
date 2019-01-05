@@ -2,31 +2,49 @@
 #define _H_GAME_OBJECT
 
 #include <string>
+#include <iostream>
+#include <Box2D/Box2D.h>
 
-using std::string;
+using namespace std;
 
 namespace Entities
 {
     template <class T>
     class GameObject
     {
-    protected:
-        string    m_type;
-        T*        m_value;
-    public:
-        GameObject(T* value, string type)
+    private:
+
+        GameObject(string type, T* value)
         {
+            this->m_type = new string(type);
             this->m_value = value;
-            this->m_type = type;
+        }
+
+        ~GameObject()
+        {
+            delete this->m_type;
+        }
+
+    protected:
+        string*   m_type = nullptr;
+        T*        m_value = nullptr;
+
+    public:
+
+        static void Create(string type, T* value, b2Body* body)
+        {
+            auto obj = new GameObject(type, value);
+            body->SetUserData(obj);
         }
 
         T* getObject()
         {
             return this->m_value;
         }
-        string getType()
+
+        string getObjectType()
         {
-            return this->m_type;
+            return *(this->m_type);
         }
     };
 }

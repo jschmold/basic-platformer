@@ -1,5 +1,6 @@
 #include "world.h"
 #include <SFML/Graphics.hpp>
+#include "game-object.h"
 
 
 using namespace Entities;
@@ -8,7 +9,6 @@ using namespace sf;
 World::World(RenderTarget* renderer, b2Vec2 gravity) : b2World(gravity)
 {
     this->m_entities  = new list<WorldEntity*>();
-    this->m_drawables = new list<WorldEntity*>();
 
     this->m_renderer  = renderer;
 
@@ -23,11 +23,9 @@ World::~World()
 {
     delete this->m_view;
     delete this->m_entities;
-    delete this->m_drawables;
 
     this->m_view = nullptr;
     this->m_entities = nullptr;
-    this->m_drawables = nullptr;
 }
 
 void World::onThink()
@@ -35,6 +33,15 @@ void World::onThink()
     this->Step(Entities::PhysicsTimestep,
                Entities::VelocityIterations,
                Entities::PositionIterations);
+
+    for (auto cont = this->GetContactList() ; cont; cont = cont->GetNext())
+    {
+        auto objA = (GameObject<WorldEntity>*)cont->GetFixtureA()->GetBody()->GetUserData();
+        auto objB = (GameObject<WorldEntity>*)cont->GetFixtureB()->GetBody()->GetUserData();
+
+        objA->getObject()->onCollide(this, objB);
+        objB->getObject()->onCollide(this, objA);
+    }
 
     for (auto i = this->m_entities->begin() ; i != this->m_entities->end() ; i++)
         (*i)->onThink();
@@ -55,26 +62,22 @@ void World::removeWorldEntity(WorldEntity* ent)
     this->m_entities->remove(ent);
 }
 
-void World::addDrawableEntity(WorldEntity* ent)
-{
-    this->m_drawables->push_back(ent);
-}
-
-void World::removeDrawableEntity(WorldEntity *ent)
-{
-    this->m_drawables->remove(ent);
-}
 
 void World::onDraw(RenderTarget* target)
 {
     auto view = target->getView();
     if (&view != this->m_view) target->setView(**this);
 
-    if (this->m_drawables->size() < 1) return;
+    if (this->m_entities->size() < 1) return;
 
-    for(auto i = this->m_drawables->begin(); i != this->m_drawables->end(); i++) {
+    for(auto i = this->m_entities->begin(); i != this->m_entities->end(); i++) {
         WorldEntity* ent = *i;
         if (ent == nullptr) continue;
         ent->onDraw(target);
     }
+}
+
+void World::addPoints(int count)
+{
+    this->m_playerPoints += count;
 }

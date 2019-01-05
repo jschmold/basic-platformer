@@ -2,13 +2,12 @@
 #define _H_OBJECTIVE
 
 #include "world-entity.h"
-#include "physics-entity.h"
 #include "world.h"
 #include "game-object.h"
 
 namespace Entities
 {
-    class Objective : public WorldEntity, public PhysicsEntity, public GameObject<Objective>
+    class Objective : public WorldEntity
     {
     private:
         int                m_value;
@@ -22,6 +21,7 @@ namespace Entities
         virtual void onDraw(RenderTarget* target);
         virtual void onThink();
         virtual ~Objective();
+        virtual void onCollide(World* world, GameObject<WorldEntity>* other);
     };
 }
 

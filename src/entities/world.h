@@ -3,14 +3,17 @@
 
 #include <SFML/Graphics.hpp>
 #include <Box2D/Box2D.h>
-#include "world-entity.h"
 #include <list>
+#include "world-entity.h"
+
+
 
 using namespace sf;
 using namespace std;
 
 namespace Entities
 {
+
     const float PhysicsTimestep    = 1.f / 60.f;
     const float VelocityIterations = 10;
     const float PositionIterations = 5;
@@ -19,9 +22,9 @@ namespace Entities
     {
     private:
         list<WorldEntity*>*    m_entities;
-        list<WorldEntity*>*    m_drawables;
         RenderTarget*          m_renderer;
         View*                  m_view;
+        int                    m_playerPoints;
 
     public:
         World(RenderTarget* render, b2Vec2 grav);
@@ -32,11 +35,10 @@ namespace Entities
         void addWorldEntity(WorldEntity* ent);
         void removeWorldEntity(WorldEntity* ent);
 
-        void addDrawableEntity(WorldEntity* ent);
-        void removeDrawableEntity(WorldEntity* ent);
-
         void onThink();
         void onDraw(RenderTarget* target);
+
+        void addPoints(int count);
     };
 
 }

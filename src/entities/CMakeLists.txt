@@ -1,5 +1,6 @@
 
 add_library(entities STATIC
+    game-object.h
     objective.h
     objective.cpp
     player.h
@@ -8,6 +9,6 @@ add_library(entities STATIC
     world.cpp
     platform.h
     platform.cpp
-    physics-entity.h
     world-entity.h
+    world-entity.cpp
     )

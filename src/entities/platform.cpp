@@ -1,15 +1,17 @@
 #include "platform.h"
+#include "world-entity.h"
 #include <SFML/Graphics.hpp>
 #include <Box2D/Box2D.h>
 #include "game-object.h"
+#include <iostream>
 
 using namespace Entities;
+using namespace std;
 
 Platform::Platform(b2World* world,
                    Vector2f position,
                    Vector2f size,
                    Color color)
-    : GameObject<Platform>(this, "platform")
 {
     this->m_world = world;
 
@@ -25,6 +27,7 @@ Platform::Platform(b2World* world,
     b2BodyDef bodyDef;
     bodyDef.position.Set(position.x, position.y);
     this->m_body = world->CreateBody(&bodyDef);
+    GameObject<Platform>::Create("platform", this, this->m_body);
 
     b2FixtureDef fixtDef;
     fixtDef.shape = &shape;
@@ -33,6 +36,8 @@ Platform::Platform(b2World* world,
 
     this->m_fixture = this->m_body->CreateFixture(&fixtDef);
 }
+
+
 
 Platform::~Platform()
 {
@@ -50,3 +55,5 @@ void Platform::onDraw(RenderTarget *target)
 {
     target->draw(*this->m_visShape);
 }
+
+void Platform::onCollide(World *world, GameObject<WorldEntity>* other) {}

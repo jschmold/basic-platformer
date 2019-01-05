@@ -2,9 +2,10 @@
 #include <Box2D/Box2D.h>
 
 #include "player.h"
-#include "physics-entity.h"
 #include "world-entity.h"
 #include "game-object.h"
+#include "platform.h"
+#include "list"
 
 using namespace Entities;
 using namespace sf;
@@ -14,9 +15,7 @@ Player::Player(float       density,
                float       friction,
                b2World*    world,
                Vector2f    startPos,
-               View*       view
-               )
-    : GameObject<Player>::GameObject(this, "player")
+               View*       view)
 {
     // physics
     this->m_world    = world;
@@ -24,7 +23,9 @@ Player::Player(float       density,
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(startPos.x, startPos.y);
+
     this->m_body = world->CreateBody(&bodyDef);
+    GameObject<Player>::Create("player", this, this->m_body);
 
     b2PolygonShape physShape;
     physShape.SetAsBox(0.4f, 0.4f);
@@ -63,6 +64,9 @@ void Player::onThink()
     else if (Keyboard::isKeyPressed(Keyboard::D))
         this->move(this->m_speed);
 
+    if (Keyboard::isKeyPressed(Keyboard::Enter)) {
+        cout << this->isTouchingType("platform");
+    }
 }
 
 void Player::onDraw(RenderTarget* target)
@@ -86,7 +90,8 @@ void Player::move(float amt)
 
 void Player::jump()
 {
-    this->m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -6.f), true);
+    if (this->isTouchingType("platform"))
+        this->m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -6.f), true);
 }
 
 void Player::onKeyRelease(Keyboard::Key key)
@@ -94,6 +99,17 @@ void Player::onKeyRelease(Keyboard::Key key)
     if (key == Keyboard::Space) this->jump();
 }
 
-void Player::collectObjective(Objective *objective)
+void Player::collectObjective(World* world, Objective *objective)
 {
+    this->m_visShape->setFillColor(Color::Blue);
+    world->addPoints(objective->getPointValue());
+    world->removeWorldEntity(objective);
 }
+
+void Player::onCollide(World* world, GameObject<WorldEntity>* other)
+{
+    auto objType = other->getObjectType();
+    if (objType == "objective") this->collectObjective(world, (Objective*)other->getObject());
+}
+
+

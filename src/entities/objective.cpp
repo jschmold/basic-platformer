@@ -1,5 +1,4 @@
 #include "world-entity.h"
-#include "physics-entity.h"
 #include "world.h"
 #include "objective.h"
 #include "game-object.h"
@@ -11,7 +10,6 @@ using namespace sf;
 Objective::Objective(Vector2f position,
                      int val,
                      World* world)
-    : GameObject<Objective>(this, "coin")
 {
     this->m_value = val;
     this->m_world = world;
@@ -31,13 +29,14 @@ Objective::Objective(Vector2f position,
     body.position = b2Vec2(position.x, position.y);
 
     this->m_body = world->CreateBody(&body);
+    GameObject<Objective>::Create("objective", this, this->m_body);
+
 
     b2FixtureDef fixDef;
     fixDef.shape = &circle;
     fixDef.density = 0.0f;
     fixDef.friction = 1;
     fixDef.isSensor = true;
-    fixDef.userData = this;
 
     this->m_fixture = this->m_body->CreateFixture(&fixDef);
 }
@@ -46,7 +45,6 @@ Objective::~Objective()
 {
     delete this->m_visShape;
     this->m_world->DestroyBody(this->m_body);
-    this->m_world->removeDrawableEntity(this);
     this->m_world->removeWorldEntity(this);
 }
 
@@ -61,3 +59,5 @@ void Objective::onDraw(RenderTarget* target)
 {
     target->draw(*this->m_visShape);
 }
+
+void Objective::onCollide(World* world, GameObject<WorldEntity>* other) {}

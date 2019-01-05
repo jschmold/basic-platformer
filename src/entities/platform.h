@@ -3,12 +3,12 @@
 
 #include <SFML/Graphics.hpp>
 #include "world-entity.h"
-#include "physics-entity.h"
 #include "game-object.h"
+#include "world.h"
 
 namespace Entities
 {
-    class Platform : public WorldEntity, public PhysicsEntity, public GameObject<Platform>
+    class Platform : public WorldEntity
     {
     private:
         RectangleShape* m_visShape;
@@ -19,6 +19,7 @@ namespace Entities
 
         virtual void onDraw(RenderTarget* target);
         virtual void onThink();
+        virtual void onCollide(World* world, GameObject<WorldEntity>* other);
     };
 }
 

@@ -2,6 +2,10 @@
 cmake_minimum_required(VERSION 3.0.0)
 project (GAME_4)
 
+set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_BUILD_TYPE RelWithDebInfo)
+
+
 # Prerequisites
 find_package(PkgConfig REQUIRED)
 find_package(SFML 2.5 COMPONENTS window graphics REQUIRED)
@@ -25,11 +29,11 @@ set (CMAKE_CXX_EXTENSIONS OFF)
 # The game executable
 add_subdirectory(src/entities)
 
-add_executable(game src/index.cpp )
+add_executable(game.run src/index.cpp )
 
-target_link_libraries(game entities)
-target_link_libraries(game sfml-system sfml-window sfml-graphics)
-target_link_libraries(game GLU)
-target_link_libraries(game GL)
-target_link_libraries(game GLEW)
-target_link_libraries(game box2d)
+target_link_libraries(game.run entities)
+target_link_libraries(game.run sfml-system sfml-window sfml-graphics)
+target_link_libraries(game.run GLU)
+target_link_libraries(game.run GL)
+target_link_libraries(game.run GLEW)
+target_link_libraries(game.run box2d)

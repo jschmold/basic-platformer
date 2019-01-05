@@ -13,8 +13,6 @@ Platform::Platform(b2World* world, Vector2f position, Vector2f size, Color color
     this->m_visShape->setSize(Vector2f(size.x * 2, size.y * 2));
     this->m_visShape->setOrigin(size.x, size.y);
     this->m_visShape->setPosition(position);
-    float xOrigin = (size.x - position.x),
-          yOrigin = (size.y - position.y);
 
     b2PolygonShape shape;
     shape.SetAsBox(size.x, size.y);
@@ -28,13 +26,17 @@ Platform::Platform(b2World* world, Vector2f position, Vector2f size, Color color
     fixtDef.density = 1.0f;
     fixtDef.friction = 0.3f;
 
-    this->m_body->CreateFixture(&fixtDef);
+    this->m_fixture = this->m_body->CreateFixture(&fixtDef);
 }
 
 Platform::~Platform()
 {
     delete this->m_visShape;
+    this->m_visShape = nullptr;
+    this->m_body->DestroyFixture(this->m_fixture);
+    this->m_fixture = nullptr;
     this->m_world->DestroyBody(this->m_body);
+    this->m_body = nullptr;
 }
 
 void Platform::onThink() {}

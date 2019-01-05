@@ -9,10 +9,13 @@ World::World(RenderTarget* renderer, b2Vec2 gravity) : b2World(gravity)
 {
     this->m_entities  = new list<WorldEntity*>();
     this->m_drawables = new list<WorldEntity*>();
+
     this->m_renderer  = renderer;
+
     this->m_view      = new View(FloatRect(0, 0, 1.f, 1.f));
     this->m_view->setSize(32.f, 18.f);
     this->m_view->setViewport(FloatRect(0.f, 0.f, 1.f, 1.f));
+
     renderer->setView(**this);
 }
 
@@ -21,6 +24,10 @@ World::~World()
     delete this->m_view;
     delete this->m_entities;
     delete this->m_drawables;
+
+    this->m_view = nullptr;
+    this->m_entities = nullptr;
+    this->m_drawables = nullptr;
 }
 
 void World::onThink()

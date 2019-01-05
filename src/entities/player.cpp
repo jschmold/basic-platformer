@@ -32,7 +32,7 @@ Player::Player(
     fixtureDef.density  = density;
     fixtureDef.shape    = &physShape;
 
-    this->m_body->CreateFixture(&fixtureDef);
+    this->m_fixture = this->m_body->CreateFixture(&fixtureDef);
 
     // visuals
     this->m_visShape = new RectangleShape();
@@ -70,7 +70,11 @@ void Player::onDraw(RenderTarget* target)
 
 Player::~Player()
 {
+    this->m_body->DestroyFixture(this->m_fixture);
     this->m_world->DestroyBody(this->m_body);
+
+    this->m_body = nullptr;
+    this->m_fixture = nullptr;
 }
 
 void Player::move(float amt)
@@ -86,4 +90,8 @@ void Player::jump()
 void Player::onKeyRelease(Keyboard::Key key)
 {
     if (key == Keyboard::Space) this->jump();
+}
+
+void Player::collectObjective(Objective *objective)
+{
 }

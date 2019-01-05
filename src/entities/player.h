@@ -5,6 +5,7 @@
 #include <Box2D/Box2D.h>
 #include "physics-entity.h"
 #include "world-entity.h"
+#include "objective.h"
 
 using namespace sf;
 
@@ -38,6 +39,7 @@ namespace Entities
         void move(float amt);
 
         void onKeyRelease(Keyboard::Key key);
+        void collectObjective(Objective* objective);
     };
 
 }

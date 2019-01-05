@@ -11,17 +11,17 @@ using namespace std;
 
 namespace Entities
 {
-    const float PhysicsTimestep = 1.f / 60.f;
+    const float PhysicsTimestep    = 1.f / 60.f;
     const float VelocityIterations = 10;
     const float PositionIterations = 5;
 
     class World : public b2World
     {
     private:
-        View*                  m_view;
         list<WorldEntity*>*    m_entities;
         list<WorldEntity*>*    m_drawables;
         RenderTarget*          m_renderer;
+        View*                  m_view;
 
     public:
         World(RenderTarget* render, b2Vec2 grav);

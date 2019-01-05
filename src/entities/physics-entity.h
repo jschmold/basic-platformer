@@ -13,6 +13,7 @@ namespace Entities
     protected:
         b2World*            m_world;
         b2Body*             m_body;
+        b2Fixture*          m_fixture;
     };
 }
 

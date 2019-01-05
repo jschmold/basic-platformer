@@ -1,4 +1,5 @@
 #include "world.h"
+#include "objective.h"
 #include <SFML/Graphics.hpp>
 #include "game-object.h"
 
@@ -16,7 +17,8 @@ World::World(RenderTarget* renderer, b2Vec2 gravity) : b2World(gravity)
     this->m_view->setSize(64.f, 36.f);
     this->m_view->setViewport(FloatRect(0.f, 0.f, 1.f, 1.f));
 
-    renderer->setView(**this);
+    if (!this->m_scoreFont.loadFromFile("./res/Thasadith-Regular.ttf"))
+        throw "Unable to load font file";
 }
 
 World::~World()
@@ -65,8 +67,20 @@ void World::removeWorldEntity(WorldEntity* ent)
 
 void World::onDraw(RenderTarget* target)
 {
-    auto view = target->getView();
-    if (&view != this->m_view) target->setView(**this);
+    target->setView(target->getDefaultView());
+    target->clear(Color::Transparent);
+
+    Text text;
+    text.setFont(this->m_scoreFont);
+    text.setString("Points: " + to_string(this->m_playerPoints));
+    text.setCharacterSize(36.f);
+
+
+    text.setPosition(0, 0);
+    text.setFillColor(Color::White);
+
+    target->draw(text);
+    target->setView(*this->m_view);
 
     if (this->m_entities->size() < 1) return;
 
@@ -75,9 +89,17 @@ void World::onDraw(RenderTarget* target)
         if (ent == nullptr) continue;
         ent->onDraw(target);
     }
+
 }
 
 void World::addPoints(int count)
 {
     this->m_playerPoints += count;
+}
+
+
+void World::destroy(WorldEntity* obj)
+{
+    this->DestroyBody(obj->getBody());
+    this->removeWorldEntity(obj);
 }

@@ -103,7 +103,7 @@ void Player::collectObjective(World* world, Objective *objective)
 {
     this->m_visShape->setFillColor(Color::Blue);
     world->addPoints(objective->getPointValue());
-    world->removeWorldEntity(objective);
+    world->destroy(objective);
 }
 
 void Player::onCollide(World* world, GameObject<WorldEntity>* other)

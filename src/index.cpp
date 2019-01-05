@@ -47,7 +47,6 @@ int main(int argc, char* argv[])
             }
         }
 
-        window->clear(Color::Black);
         world->onThink();
         world->onDraw(window);
         window->display();

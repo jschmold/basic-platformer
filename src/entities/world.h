@@ -5,7 +5,7 @@
 #include <Box2D/Box2D.h>
 #include <list>
 #include "world-entity.h"
-
+#include "objective.h"
 
 
 using namespace sf;
@@ -25,6 +25,7 @@ namespace Entities
         RenderTarget*          m_renderer;
         View*                  m_view;
         int                    m_playerPoints;
+        Font                   m_scoreFont;
 
     public:
         World(RenderTarget* render, b2Vec2 grav);
@@ -39,6 +40,8 @@ namespace Entities
         void onDraw(RenderTarget* target);
 
         void addPoints(int count);
+
+        void destroy(WorldEntity* obj);
     };
 
 }

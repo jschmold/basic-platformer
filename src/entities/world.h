@@ -6,10 +6,14 @@
 #include <list>
 #include "world-entity.h"
 #include "objective.h"
+#include <TGUI/TGUI.hpp>
 
 
-using namespace sf;
-using namespace std;
+using sf::View;
+using sf::Font;
+using sf::RenderTarget;
+
+using tgui::Gui;
 
 namespace Entities
 {
@@ -24,8 +28,12 @@ namespace Entities
         list<WorldEntity*>*    m_entities;
         RenderTarget*          m_renderer;
         View*                  m_view;
+        tgui::Gui*             m_gui;
         int                    m_playerPoints;
-        Font                   m_scoreFont;
+        sf::Font               m_scoreFont;
+        float                  m_timestep;
+        float                  m_velocityIter;
+        float                  m_positionIter;
 
     public:
         World(RenderTarget* render, b2Vec2 grav);
@@ -42,6 +50,15 @@ namespace Entities
         void addPoints(int count);
 
         void destroy(WorldEntity* obj);
+
+        void setTimestep(float time);
+        void pause();
+        void resume();
+
+        bool getIsPaused();
+
+        void setGui(tgui::Gui* gui);
+
     };
 
 }

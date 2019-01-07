@@ -24,6 +24,7 @@ namespace Entities
         b2Fixture*          m_fixture;
 
     public:
+        virtual ~WorldEntity() = 0;
         virtual void onCollide(World* world, GameObject<WorldEntity>* other) = 0;
         virtual void onThink() = 0;
         virtual void onDraw(RenderTarget* target) = 0;

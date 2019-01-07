@@ -112,4 +112,7 @@ void Player::onCollide(World* world, GameObject<WorldEntity>* other)
     if (objType == "objective") this->collectObjective(world, (Objective*)other->getObject());
 }
 
-
+Player::WorldEntity::~WorldEntity()
+{
+    delete (WorldEntity*)this->m_body->GetUserData();
+}

@@ -5,9 +5,9 @@ project (GAME_4)
 set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_BUILD_TYPE RelWithDebInfo)
 
-
 # Prerequisites
 find_package(PkgConfig REQUIRED)
+find_package(TGUI REQUIRED)
 find_package(SFML 2.5 COMPONENTS window graphics REQUIRED)
 
 # OpenGL
@@ -29,8 +29,9 @@ set (CMAKE_CXX_EXTENSIONS OFF)
 # The game executable
 add_subdirectory(src/entities)
 
-add_executable(game.run src/index.cpp )
+add_executable(game.run src/index.cpp)
 
+target_link_libraries(game.run tgui)
 target_link_libraries(game.run entities)
 target_link_libraries(game.run sfml-system sfml-window sfml-graphics)
 target_link_libraries(game.run GLU)

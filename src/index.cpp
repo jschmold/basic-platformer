@@ -29,15 +29,6 @@ Sprite pauseButton()
     if(!text->create(24, 32)) throw "Unable to create pause texture";
     text->clear(Color::Transparent);
 
-    RectangleShape rect(Vector2f(10.f, 32.f));
-    rect.setFillColor(Color::Red);
-    rect.setPosition(0, 0);
-    text->draw(rect);
-
-    rect.setPosition(14.f, 0);
-    text->draw(rect);
-
-    text->display();
 
     Sprite spr(text->getTexture());
     spr.setTextureRect(IntRect(24, 0, 48, 32.f));
